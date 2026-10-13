@@ -1,0 +1,45 @@
+Componentes de AudioLocal 1.0.0
+
+Los componentes son ejecutados por la app y conservan sus respectivas licencias.
+No se modifica el código de los proyectos externos. FFmpeg se compila para audio
+con libmp3lame y sin --enable-gpl ni --enable-nonfree.
+
+Fuentes incluidas en AudioLocal-1.0.0-Fuentes-dependencias.zip:
+
+• FFmpeg 7.1 (LGPL-2.1-or-later):
+  https://ffmpeg.org/releases/ffmpeg-7.1.tar.xz
+• LAME 3.100 / libmp3lame (LGPL-2.0-or-later):
+  https://downloads.sourceforge.net/project/lame/lame/3.100/lame-3.100.tar.gz
+• yt-dlp 2026.08.19 y avisos de su ejecutable oficial:
+  https://github.com/yt-dlp/yt-dlp/releases/tag/2026.08.19
+  https://github.com/yt-dlp/yt-dlp/releases/download/2026.08.19/yt-dlp.tar.gz
+• Mutagen 1.47.0 (GPL-2.0-or-later), incluido por el binario oficial de yt-dlp:
+  https://pypi.org/project/mutagen/1.47.0/#files
+  https://github.com/quodlibet/mutagen/tree/release-1.47.0
+
+El archivo yt-dlp-THIRD_PARTY_LICENSES.txt pertenece al ejecutable oficial y
+conserva íntegros sus avisos y las referencias a fuentes externas. Sus menciones
+«Only included in Linux builds» no identifican componentes del bundle macOS.
+Los ejecutables oficiales de yt-dlp se distribuyen bajo GPLv3+ debido a componentes
+incluidos; yt-dlp por separado usa Unlicense.
+
+Otros componentes:
+
+• Python 3.12.14, PSF License:
+  https://www.python.org/downloads/release/python-31214/
+• Tcl/Tk 9.0.4, licencia BSD de los proyectos:
+  https://github.com/tcltk/tcl/tree/core-9-0-4
+  https://github.com/tcltk/tk/tree/core-9-0-4
+• CustomTkinter 5.2.2, MIT:
+  https://github.com/TomSchimansky/CustomTkinter/tree/v5.2.2
+• Roboto (fuentes incluidas por CustomTkinter), Apache License 2.0:
+  https://github.com/googlefonts/roboto
+• Darkdetect 0.8.0, BSD-3-Clause:
+  https://github.com/albertosottile/darkdetect/tree/v0.8.0
+• Node.js 24.14.1, MIT y avisos conservados en Node-LICENSE.txt:
+  https://nodejs.org/dist/v24.14.1/
+• PyInstaller 6.22.0, GPL con excepción para el bootloader:
+  https://github.com/pyinstaller/pyinstaller/tree/v6.22.0
+
+Fuentes de AudioLocal y scripts de compilación:
+https://github.com/franciscorrandom/AudioLocal/tree/v1.0.0

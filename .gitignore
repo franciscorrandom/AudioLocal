@@ -1,0 +1,15 @@
+.build-venv/
+.venv/
+.pyinstaller-cache/
+build/
+dist/
+release/
+source-release/
+tools/
+build-sources/
+verification/
+__pycache__/
+*.pyc
+.DS_Store
+*.mp3
+*.zip
