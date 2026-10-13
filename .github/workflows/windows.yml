@@ -1,0 +1,75 @@
+name: AudioLocal Windows beta
+on:
+  push:
+    branches: [windows/audiolocal-beta]
+    paths: ['windows/**', '.github/workflows/windows.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  windows:
+    runs-on: windows-2022
+    timeout-minutes: 40
+    defaults:
+      run:
+        working-directory: windows
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
+        with:
+          python-version: '3.12.10'
+          architecture: x64
+      - name: Validate Python and install locked build dependencies
+        shell: pwsh
+        run: |
+          python -c "import sys, tkinter; assert sys.version_info[:3] == (3,12,10); assert tkinter.TclVersion == 8.6; print(sys.version)"
+          python -m pip install --disable-pip-version-check --no-cache-dir --require-hashes -r requirements-build.lock
+          if ($LASTEXITCODE -ne 0) { throw 'Build dependencies failed' }
+      - name: Download hash-verified official tools and dependency sources
+        shell: pwsh
+        run: ./scripts/download-tools.ps1
+      - uses: msys2/setup-msys2@ec48f7c5447b3140e2b088413ae3a55687bccb6e # v2
+        with:
+          msystem: UCRT64
+          update: true
+          install: >-
+            make
+            diffutils
+            tar
+            xz
+            mingw-w64-ucrt-x86_64-gcc
+            mingw-w64-ucrt-x86_64-nasm
+      - name: Build LGPL FFmpeg and verify portable imports
+        shell: msys2 {0}
+        run: bash scripts/build-ffmpeg.sh
+      - name: Run engine regression checks
+        shell: pwsh
+        run: |
+          python -m unittest discover -s src/tests -v
+          if ($LASTEXITCODE -ne 0) { throw 'Engine regressions failed' }
+      - name: Build standalone GUI executable
+        shell: pwsh
+        run: |
+          python -m PyInstaller --noconfirm --clean Windows.spec
+          if ($LASTEXITCODE -ne 0) { throw 'PyInstaller failed' }
+      - name: Verify real packaged GUI, codecs, bitrates, Unicode and cancellation
+        shell: pwsh
+        run: ./scripts/verify-bundle.ps1
+      - name: Build portable ZIP and per-user installer
+        shell: pwsh
+        run: ./scripts/package-release.ps1
+      - name: Upload build evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: AudioLocal-Windows-verification
+          path: windows/verification/
+          if-no-files-found: error
+          retention-days: 30
+      - name: Upload verified distributables
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: AudioLocal-Windows-1.0.0-beta.1
+          path: windows/release/
+          if-no-files-found: error
+          retention-days: 30

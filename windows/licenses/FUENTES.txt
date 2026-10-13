@@ -1,0 +1,15 @@
+AudioLocal Windows 1.0.0-beta.1 — fuentes y dependencias
+
+La publicación incluye AudioLocal-1.0.0-beta.1-Windows-Fuentes.zip.
+Contiene el código de AudioLocal, instrucciones, scripts y fuentes de
+FFmpeg 7.1, LAME 3.100 y Mutagen 1.47.0. Los binarios externos se mantienen
+independientes y pueden reemplazarse por compilaciones propias compatibles.
+
+Node 24.14.1: https://nodejs.org/dist/v24.14.1/
+yt-dlp 2026.08.19: https://github.com/yt-dlp/yt-dlp/tree/2026.08.19
+Python 3.12.10: https://www.python.org/downloads/release/python-31210/
+Tcl/Tk 8.6: https://www.tcl-lang.org/software/tcltk/8.6.html
+CustomTkinter 5.2.2: https://github.com/TomSchimansky/CustomTkinter/tree/v5.2.2
+PyInstaller 6.22.0: https://github.com/pyinstaller/pyinstaller/tree/v6.22.0
+
+Ver BUILD.md para comandos, hashes y notas de licencias.
